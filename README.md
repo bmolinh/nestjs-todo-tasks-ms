@@ -58,6 +58,38 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## Operations
+
+### Health Check
+
+You can check the health of the application by making a GET request to the `/` endpoint:
+
+```bash
+$ curl http://localhost:3000/
+```
+
+## Dockerization
+
+You can build and run the application using Docker. The following steps will guide you through the process:
+
+### Build the Docker Image
+
+```bash
+$ npm run docker:build
+```
+
+### Run the Docker Container
+
+```bash
+$ npm run docker:run
+```
+
+### Stop the Docker Container
+
+```bash
+$ npm run docker:stop
+```
+
 ## Deployment
 
 When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
