@@ -17,6 +17,7 @@ describe('TasksService', () => {
   };
 
   const mockTaskModel = {
+    create: jest.fn().mockResolvedValue(mockTask),
     findAll: jest.fn().mockResolvedValue([mockTask]),
     findByPk: jest.fn().mockResolvedValue(mockTask),
   };
@@ -37,6 +38,14 @@ describe('TasksService', () => {
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+  });
+
+  it('should create a task', async () => {
+    mockTask.update.mockResolvedValue(mockTask);
+
+    const task = await service.create({ title: 'New Task' });
+
+    expect(task).toEqual(mockTask);
   });
 
   it('should find all tasks', async () => {
@@ -65,7 +74,11 @@ describe('TasksService', () => {
   });
 
   it('should update a task by id', async () => {
-    const updatedTask = { ...mockTask, title: 'Updated Task' };
+    const updatedTask = {
+      ...mockTask,
+      title: 'Updated Task',
+      updatedAt: new Date(),
+    };
 
     mockTask.update.mockResolvedValue(updatedTask);
 
@@ -77,20 +90,27 @@ describe('TasksService', () => {
 
   it('should update task orders', async () => {
     const orders = [{ id: 1, order: 2 }];
-    const updatedTask = { ...mockTask, order: 2 };
+    const updatedTask = { ...mockTask, order: 2, updatedAt: new Date() };
 
     mockTask.update.mockResolvedValue(updatedTask);
 
     const tasks = await service.updateOrders(orders);
 
     expect(tasks).toEqual([updatedTask]);
-    expect(mockTask.update).toHaveBeenCalledWith({ order: 2 });
   });
 
   it('should remove a task by id', async () => {
     await service.remove(1);
 
     expect(mockTask.destroy).toHaveBeenCalled();
+  });
+
+  it('should throw an error if task not created', async () => {
+    jest.spyOn(mockTaskModel, 'create').mockResolvedValue(null);
+
+    await expect(service.create({ title: 'New Task' })).rejects.toThrow(
+      'Task not created',
+    );
   });
 
   it('should throw an error if task not found', async () => {

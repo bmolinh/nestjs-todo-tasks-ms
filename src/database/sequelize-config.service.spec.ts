@@ -19,7 +19,7 @@ describe('SequelizeConfigService', () => {
                 'database.port': 5432,
                 'database.user': 'postgres',
                 'database.password': 'postgrespassword',
-                'database.name': 'todos',
+                'database.name': 'tasks',
               };
               return config[key] as string | number;
             }),
@@ -44,7 +44,7 @@ describe('SequelizeConfigService', () => {
       port: 5432,
       username: 'postgres',
       password: 'postgrespassword',
-      database: 'todos',
+      database: 'tasks',
       autoLoadModels: true,
       synchronize: true,
     };

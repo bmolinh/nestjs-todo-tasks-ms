@@ -9,6 +9,18 @@ export class TasksService {
     private readonly taskModel: typeof Task,
   ) {}
 
+  async create(task: Partial<Task>): Promise<Task> {
+    const taskCreated = await this.taskModel.create({
+      ...task,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    });
+
+    if (!taskCreated) throw new Error(`Task not created`);
+
+    return taskCreated.update({ order: taskCreated.id });
+  }
+
   async findAll(): Promise<Task[]> {
     return this.taskModel.findAll();
   }
@@ -28,7 +40,7 @@ export class TasksService {
   async updateById(id: number, task: Partial<Task>): Promise<Task> {
     const taskToUpdate = await this.findTaskById(id);
 
-    return await taskToUpdate.update(task);
+    return await taskToUpdate.update({ ...task, updatedAt: new Date() });
   }
 
   async updateOrders(orders: { id: number; order: number }[]): Promise<Task[]> {
@@ -36,7 +48,7 @@ export class TasksService {
       orders.map(async ({ id, order }) => {
         const task = await this.findTaskById(id);
 
-        return task.update({ order });
+        return task.update({ order, updatedAt: new Date() });
       }),
     );
 

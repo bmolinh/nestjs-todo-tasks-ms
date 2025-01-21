@@ -1,0 +1,776 @@
+{
+	"info": {
+		"_postman_id": "2bb2ead2-f12b-4a1c-aa50-0589f6c84fba",
+		"name": "nest-todo-ms",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39581064"
+	},
+	"item": [
+		{
+			"name": "healthcheck",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}",
+					"host": [
+						"{{host}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tasks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "223",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"df-20d2vy7O0dHXBmd3B2g6K3E+rNY\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:10:37 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 2,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"tags\": [\n            \"new\"\n        ],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:10:33.657Z\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "tasks",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/tasks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "217",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"d9-/gCUGPY7AV1SmcmaIKmifvJzDfo\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:06:56 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"completed\": false,\n    \"id\": 1,\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-21T20:06:56.100Z\",\n    \"updatedAt\": \"2025-01-21T20:06:56.110Z\",\n    \"order\": 1\n}"
+				}
+			]
+		},
+		{
+			"name": "tasks/:id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tasks/:id",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks/:id",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "217",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"d9-hP7fzh/EIILmoCTOz6S2jvKohmo\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:07:43 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"order\": 1,\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"completed\": false,\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-21T20:06:56.100Z\",\n    \"updatedAt\": \"2025-01-21T20:06:56.110Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "tasks/due-date",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tasks/due-date?dueDate=Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks",
+						"due-date"
+					],
+					"query": [
+						{
+							"key": "dueDate",
+							"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks/due-date",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/due-date?dueDate=Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"due-date"
+							],
+							"query": [
+								{
+									"key": "dueDate",
+									"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "222",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"de-kXX5eywHB0hWRVGD8hpQXMq98rI\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:40:01 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 1,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": true,\n        \"tags\": [\n            \"new\"\n        ],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:33:08.134Z\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "tasks/completed",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tasks/completed?completed=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks",
+						"completed"
+					],
+					"query": [
+						{
+							"key": "completed",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks/completed",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/completed?completed=true",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"completed"
+							],
+							"query": [
+								{
+									"key": "completed",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:40:33 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[]"
+				}
+			]
+		},
+		{
+			"name": "tasks/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/tasks/:id",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks/:id",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/tasks/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "Text",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:08:40 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "0",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "tasks",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\",\n    \"completed\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/tasks/:id",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "2",
+							"type": "string"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tasks/:id",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "2",
+									"type": "string"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "221",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"dd-2u3YIlfSQ5D8kt7w1S96GGoXNyY\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:10:33 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 2,\n    \"order\": 2,\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"completed\": false,\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n    \"updatedAt\": \"2025-01-21T20:10:33.657Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "tasks/orders",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"id\": 2,\n        \"order\": 1\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/tasks/orders",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"tasks",
+						"orders"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks/orders",
+					"originalRequest": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\n    {\n        \"id\": 2,\n        \"order\": 1\n    }\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/tasks/orders",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"tasks",
+								"orders"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "223",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"df-kvcmLED8pQ1kqLLKMpy7mgkY7vs\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 21 Jan 2025 20:31:21 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 1,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"tags\": [\n            \"new\"\n        ],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:31:21.272Z\"\n    }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

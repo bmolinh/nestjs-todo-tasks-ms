@@ -68,6 +68,58 @@ You can check the health of the application by making a GET request to the `/` e
 $ curl http://localhost:3000/
 ```
 
+### Task Operations
+
+You can perform CRUD operations on tasks using the following endpoints:
+
+- **Get all tasks**
+
+  ```bash
+  $ curl http://localhost:3000/tasks
+  ```
+
+- **Get tasks by completed status**
+
+  ```bash
+  $ curl http://localhost:3000/tasks/completed?completed=true
+  ```
+
+- **Get tasks by due date**
+
+  ```bash
+  $ curl http://localhost:3000/tasks/due-date?dueDate=2023-10-10
+  ```
+
+- **Get a task by ID**
+
+  ```bash
+  $ curl http://localhost:3000/tasks/1
+  ```
+
+- **Create a new task**
+
+  ```bash
+  $ curl -X POST http://localhost:3000/tasks -H "Content-Type: application/json" -d '{"title": "New Task", "description": "Task description", "dueDate": "2023-10-10"}'
+  ```
+
+- **Update a task by ID**
+
+  ```bash
+  $ curl -X PATCH http://localhost:3000/tasks/1 -H "Content-Type: application/json" -d '{"title": "Updated Task", "description": "Updated description"}'
+  ```
+
+- **Update task orders**
+
+  ```bash
+  $ curl -X PATCH http://localhost:3000/tasks/orders -H "Content-Type: application/json" -d '[{"id": 1, "order": 2}]'
+  ```
+
+- **Delete a task by ID**
+
+  ```bash
+  $ curl -X DELETE http://localhost:3000/tasks/1
+  ```
+
 ## Dockerization
 
 You can build and run the application using Docker. The following steps will guide you through the process:
@@ -88,6 +140,12 @@ $ npm run docker:run
 
 ```bash
 $ npm run docker:stop
+```
+
+### Remove the Docker Container and Volumes
+
+```bash
+$ npm run docker:clean
 ```
 
 ## Deployment
@@ -129,3 +187,43 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+## Folder Structure
+
+```
+.gitignore
+.prettierrc
+docker-compose.yaml
+Dockerfile
+eslint.config.mjs
+LICENSE
+nest-cli.json
+package.json
+README.md
+src/
+  app.controller.spec.ts
+  app.controller.ts
+  app.module.ts
+  app.service.spec.ts
+  app.service.ts
+  config/
+    configuration.ts
+  database/
+    sequelize-config.service.spec.ts
+    sequelize-config.service.ts
+  main.ts
+  tasks/
+    task.model.ts
+    tasks.controller.spec.ts
+    tasks.controller.ts
+    tasks.dto.ts
+    tasks.module.ts
+    tasks.service.spec.ts
+    tasks.service.ts
+test/
+  app.e2e-spec.ts
+  jest-e2e.json
+tsconfig.build.json
+tsconfig.json
+nest-todo-ms.postman_collection.json
+```

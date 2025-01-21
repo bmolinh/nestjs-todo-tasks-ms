@@ -1,6 +1,6 @@
-import { Model } from 'sequelize';
 import {
   Table,
+  Model,
   PrimaryKey,
   AutoIncrement,
   Column,
@@ -14,7 +14,6 @@ export class Task extends Model {
   @Column
   id: number;
 
-  @AutoIncrement
   @Column
   order: number;
 
