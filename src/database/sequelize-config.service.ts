@@ -7,7 +7,7 @@ import {
 
 @Injectable()
 export class SequelizeConfigService implements SequelizeOptionsFactory {
-  constructor(private configService: ConfigService) {}
+  constructor(private readonly configService: ConfigService) {}
 
   createSequelizeOptions(): SequelizeModuleOptions {
     return {
