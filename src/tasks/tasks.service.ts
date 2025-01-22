@@ -19,6 +19,7 @@ export class TasksService {
       {
         ...task,
         taskTags: task.tags.map((tag) => ({ tagId: tag.id })),
+        dueDate: new Date(task.dueDate),
       },
       {
         include: [TaskTag],
@@ -66,7 +67,7 @@ export class TasksService {
       );
     }
 
-    return taskToUpdate.update({ ...task });
+    return taskToUpdate.update({ ...task, dueDate: new Date(task.dueDate!) });
   }
 
   async updateOrders(orders: { id: number; order: number }[]): Promise<Task[]> {

@@ -2,7 +2,7 @@ import { PartialType } from '@nestjs/mapped-types';
 import {
   IsArray,
   IsBoolean,
-  IsDate,
+  IsDateString,
   IsNotEmpty,
   IsOptional,
   IsString,
@@ -31,8 +31,8 @@ export class CreateTaskDto {
   tags: UpdateTagDto[];
 
   @IsNotEmpty()
-  @IsDate()
-  dueDate: Date;
+  @IsDateString()
+  dueDate: string;
 }
 
 export class UpdateTaskDto extends PartialType(CreateTaskDto) {}

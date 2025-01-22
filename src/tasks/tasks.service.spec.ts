@@ -86,7 +86,11 @@ describe('TasksService', () => {
 
   describe('updateById', () => {
     it('should update a task by id', async () => {
-      const updateTaskDto = { title: 'Updated Task', tags: [{ id: 1 }] };
+      const updateTaskDto = {
+        title: 'Updated Task',
+        tags: [{ id: 1 }],
+        dueDate: new Date(),
+      };
       const updatedTask = {
         ...mockTask,
         title: 'Updated Task',
@@ -97,7 +101,10 @@ describe('TasksService', () => {
 
       const result = await service.updateById(1, updateTaskDto as any);
       expect(result).toEqual(updatedTask);
-      expect(mockTask.update).toHaveBeenCalledWith({ ...updateTaskDto });
+      expect(mockTask.update).toHaveBeenCalledWith({
+        ...updateTaskDto,
+        dueDate: new Date(updateTaskDto.dueDate),
+      });
     });
   });
 

@@ -84,7 +84,7 @@ describe('TasksController', () => {
         title: 'New Task',
         description: 'Test',
         tags: [],
-        dueDate: new Date(),
+        dueDate: new Date().toString(),
       };
 
       const result = { id: 1, ...createTaskDto };
