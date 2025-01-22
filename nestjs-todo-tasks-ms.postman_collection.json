@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "2bb2ead2-f12b-4a1c-aa50-0589f6c84fba",
-		"name": "nest-todo-ms",
+		"_postman_id": "0b6cfba7-6734-4692-b5fc-aea0d098c29b",
+		"name": "nestjs-todo-tasks-ms",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "39581064"
 	},
@@ -21,33 +21,35 @@
 			"response": []
 		},
 		{
-			"name": "tasks",
+			"name": "tags",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/tasks",
+					"raw": "{{host}}/api/tags",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"tasks"
+						"api",
+						"tags"
 					]
 				}
 			},
 			"response": [
 				{
-					"name": "tasks",
+					"name": "tags",
 					"originalRequest": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/tasks",
+							"raw": "{{host}}/api/tags",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"tasks"
+								"api",
+								"tags"
 							]
 						}
 					},
@@ -67,17 +69,17 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "223",
+							"value": "429",
 							"type": "text"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"df-20d2vy7O0dHXBmd3B2g6K3E+rNY\"",
+							"value": "W/\"1ad-ADMMp3aEIOb81j5DZGjo0bNjfG0\"",
 							"type": "text"
 						},
 						{
 							"key": "Date",
-							"value": "Tue, 21 Jan 2025 20:10:37 GMT",
+							"value": "Wed, 22 Jan 2025 01:30:54 GMT",
 							"type": "text"
 						},
 						{
@@ -92,7 +94,215 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 2,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"tags\": [\n            \"new\"\n        ],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:10:33.657Z\"\n    }\n]"
+					"body": "[\n    {\n        \"id\": 1,\n        \"name\": \"New Tag\",\n        \"createdAt\": \"2025-01-22T01:28:24.483Z\",\n        \"updatedAt\": \"2025-01-22T01:28:24.485Z\",\n        \"tasks\": [\n            {\n                \"id\": 1,\n                \"order\": 1,\n                \"title\": \"New Task\",\n                \"description\": \"New Description\",\n                \"completed\": false,\n                \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n                \"createdAt\": \"2025-01-22T01:29:35.448Z\",\n                \"updatedAt\": \"2025-01-22T01:29:35.462Z\",\n                \"TaskTag\": {\n                    \"taskId\": 1,\n                    \"tagId\": 1,\n                    \"createdAt\": \"2025-01-22T01:29:35.458Z\",\n                    \"updatedAt\": \"2025-01-22T01:29:35.458Z\"\n                }\n            }\n        ]\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "tags",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"New Tag\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/api/tags",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tags"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tags",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"New Tag\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/api/tags",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tags"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "103",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"67-iIDqHTrCIdsGXQX7QZEpa3K9Lfc\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 22 Jan 2025 01:28:24 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"name\": \"New Tag\",\n    \"createdAt\": \"2025-01-22T01:28:24.483Z\",\n    \"updatedAt\": \"2025-01-22T01:28:24.485Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "tasks",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/api/tasks",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"api",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "dueDate",
+							"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+							"disabled": true
+						},
+						{
+							"key": "completed",
+							"value": "false",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "tasks",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/tasks",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"tasks"
+							],
+							"query": [
+								{
+									"key": "dueDate",
+									"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+									"disabled": true
+								},
+								{
+									"key": "completed",
+									"value": "false",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "JSON",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express",
+							"type": "text"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8",
+							"type": "text"
+						},
+						{
+							"key": "Content-Length",
+							"value": "428",
+							"type": "text"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1ac-zGSICpCPoljS2OGFTSxkAdeLkjA\"",
+							"type": "text"
+						},
+						{
+							"key": "Date",
+							"value": "Wed, 22 Jan 2025 02:07:00 GMT",
+							"type": "text"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"type": "text"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5",
+							"type": "text"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": 1,\n        \"order\": 1,\n        \"title\": \"New Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-22T01:29:35.448Z\",\n        \"updatedAt\": \"2025-01-22T01:29:35.462Z\",\n        \"tags\": [\n            {\n                \"id\": 1,\n                \"name\": \"New Tag\",\n                \"createdAt\": \"2025-01-22T01:28:24.483Z\",\n                \"updatedAt\": \"2025-01-22T01:28:24.485Z\",\n                \"TaskTag\": {\n                    \"taskId\": 1,\n                    \"tagId\": 1,\n                    \"createdAt\": \"2025-01-22T01:29:35.458Z\",\n                    \"updatedAt\": \"2025-01-22T01:29:35.458Z\"\n                }\n            }\n        ]\n    }\n]"
 				}
 			]
 		},
@@ -103,7 +313,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\"\n}",
+					"raw": "{\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        {\n            \"id\": 1\n        }\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -111,11 +321,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/tasks",
+					"raw": "{{host}}/api/tasks",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"tasks"
 					]
 				}
@@ -136,11 +347,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/tasks",
+							"raw": "{{host}}/api/tasks",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"tasks"
 							]
 						}
@@ -196,19 +408,19 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/tasks/:id",
+					"raw": "{{host}}/api/tasks/:id",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"tasks",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "1",
-							"type": "string"
+							"value": "1"
 						}
 					]
 				}
@@ -220,19 +432,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/tasks/:id",
+							"raw": "{{host}}/api/tasks/:id",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"tasks",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "1",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -253,17 +465,17 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "217",
+							"value": "426",
 							"type": "text"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"d9-hP7fzh/EIILmoCTOz6S2jvKohmo\"",
+							"value": "W/\"1aa-JgaMiQ7cVIpdFu8mM766v0xqZwM\"",
 							"type": "text"
 						},
 						{
 							"key": "Date",
-							"value": "Tue, 21 Jan 2025 20:07:43 GMT",
+							"value": "Wed, 22 Jan 2025 02:10:23 GMT",
 							"type": "text"
 						},
 						{
@@ -278,7 +490,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 1,\n    \"order\": 1,\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"completed\": false,\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-21T20:06:56.100Z\",\n    \"updatedAt\": \"2025-01-21T20:06:56.110Z\"\n}"
+					"body": "{\n    \"id\": 1,\n    \"order\": 1,\n    \"title\": \"New Task\",\n    \"description\": \"New Description\",\n    \"completed\": false,\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-22T01:29:35.448Z\",\n    \"updatedAt\": \"2025-01-22T01:29:35.462Z\",\n    \"tags\": [\n        {\n            \"id\": 1,\n            \"name\": \"New Tag\",\n            \"createdAt\": \"2025-01-22T01:28:24.483Z\",\n            \"updatedAt\": \"2025-01-22T01:28:24.485Z\",\n            \"TaskTag\": {\n                \"taskId\": 1,\n                \"tagId\": 1,\n                \"createdAt\": \"2025-01-22T01:29:35.458Z\",\n                \"updatedAt\": \"2025-01-22T01:29:35.458Z\"\n            }\n        }\n    ]\n}"
 				}
 			]
 		},
@@ -288,18 +500,23 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/tasks/due-date?dueDate=Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+					"raw": "{{host}}/api/tasks?dueDate=Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"tasks",
-						"due-date"
+						"api",
+						"tasks"
 					],
 					"query": [
 						{
 							"key": "dueDate",
 							"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)"
+						},
+						{
+							"key": "completed",
+							"value": "false",
+							"disabled": true
 						}
 					]
 				}
@@ -311,18 +528,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/tasks/due-date?dueDate=Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+							"raw": "{{host}}/api/tasks?dueDate=Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"tasks",
-								"due-date"
+								"api",
+								"tasks"
 							],
 							"query": [
 								{
 									"key": "dueDate",
 									"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)"
+								},
+								{
+									"key": "completed",
+									"value": "false",
+									"disabled": true
 								}
 							]
 						}
@@ -343,17 +565,17 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "222",
+							"value": "428",
 							"type": "text"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"de-kXX5eywHB0hWRVGD8hpQXMq98rI\"",
+							"value": "W/\"1ac-zGSICpCPoljS2OGFTSxkAdeLkjA\"",
 							"type": "text"
 						},
 						{
 							"key": "Date",
-							"value": "Tue, 21 Jan 2025 20:40:01 GMT",
+							"value": "Wed, 22 Jan 2025 02:08:28 GMT",
 							"type": "text"
 						},
 						{
@@ -368,7 +590,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 1,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": true,\n        \"tags\": [\n            \"new\"\n        ],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:33:08.134Z\"\n    }\n]"
+					"body": "[\n    {\n        \"id\": 1,\n        \"order\": 1,\n        \"title\": \"New Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-22T01:29:35.448Z\",\n        \"updatedAt\": \"2025-01-22T01:29:35.462Z\",\n        \"tags\": [\n            {\n                \"id\": 1,\n                \"name\": \"New Tag\",\n                \"createdAt\": \"2025-01-22T01:28:24.483Z\",\n                \"updatedAt\": \"2025-01-22T01:28:24.485Z\",\n                \"TaskTag\": {\n                    \"taskId\": 1,\n                    \"tagId\": 1,\n                    \"createdAt\": \"2025-01-22T01:29:35.458Z\",\n                    \"updatedAt\": \"2025-01-22T01:29:35.458Z\"\n                }\n            }\n        ]\n    }\n]"
 				}
 			]
 		},
@@ -378,18 +600,23 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/tasks/completed?completed=true",
+					"raw": "{{host}}/api/tasks?completed=false",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
-						"tasks",
-						"completed"
+						"api",
+						"tasks"
 					],
 					"query": [
 						{
+							"key": "dueDate",
+							"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+							"disabled": true
+						},
+						{
 							"key": "completed",
-							"value": "true"
+							"value": "false"
 						}
 					]
 				}
@@ -401,18 +628,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/tasks/completed?completed=true",
+							"raw": "{{host}}/api/tasks?completed=false",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
-								"tasks",
-								"completed"
+								"api",
+								"tasks"
 							],
 							"query": [
 								{
+									"key": "dueDate",
+									"value": "Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)",
+									"disabled": true
+								},
+								{
 									"key": "completed",
-									"value": "true"
+									"value": "false"
 								}
 							]
 						}
@@ -433,17 +665,17 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "2",
+							"value": "428",
 							"type": "text"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"2-l9Fw4VUO7kr8CvBlt4zaMCqXZ0w\"",
+							"value": "W/\"1ac-zGSICpCPoljS2OGFTSxkAdeLkjA\"",
 							"type": "text"
 						},
 						{
 							"key": "Date",
-							"value": "Tue, 21 Jan 2025 20:40:33 GMT",
+							"value": "Wed, 22 Jan 2025 02:09:50 GMT",
 							"type": "text"
 						},
 						{
@@ -458,7 +690,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[]"
+					"body": "[\n    {\n        \"id\": 1,\n        \"order\": 1,\n        \"title\": \"New Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-22T01:29:35.448Z\",\n        \"updatedAt\": \"2025-01-22T01:29:35.462Z\",\n        \"tags\": [\n            {\n                \"id\": 1,\n                \"name\": \"New Tag\",\n                \"createdAt\": \"2025-01-22T01:28:24.483Z\",\n                \"updatedAt\": \"2025-01-22T01:28:24.485Z\",\n                \"TaskTag\": {\n                    \"taskId\": 1,\n                    \"tagId\": 1,\n                    \"createdAt\": \"2025-01-22T01:29:35.458Z\",\n                    \"updatedAt\": \"2025-01-22T01:29:35.458Z\"\n                }\n            }\n        ]\n    }\n]"
 				}
 			]
 		},
@@ -468,19 +700,19 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/tasks/:id",
+					"raw": "{{host}}/api/tasks/:id",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"tasks",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "1",
-							"type": "string"
+							"value": "1"
 						}
 					]
 				}
@@ -492,19 +724,19 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/tasks/:id",
+							"raw": "{{host}}/api/tasks/:id",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"tasks",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "1",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -547,11 +779,11 @@
 		{
 			"name": "tasks",
 			"request": {
-				"method": "PATCH",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\",\n    \"completed\": true\n}",
+					"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"Updated Description\",\n    \"tags\": [\n        {\n            \"id\": 2\n        }\n    ],\n    \"dueDate\": \"Tue Jan 22 2025 15:11:35 GMT-0300 (Chile Summer Time)\",\n    \"completed\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -559,19 +791,19 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/tasks/:id",
+					"raw": "{{host}}/api/tasks/:id",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"tasks",
 						":id"
 					],
 					"variable": [
 						{
 							"key": "id",
-							"value": "2",
-							"type": "string"
+							"value": "1"
 						}
 					]
 				}
@@ -580,11 +812,11 @@
 				{
 					"name": "tasks",
 					"originalRequest": {
-						"method": "PATCH",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\"\n}",
+							"raw": "{\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"tags\": [],\n    \"dueDate\": \"Tue Jan 21 2025 15:11:35 GMT-0300 (Chile Summer Time)\",\n    \"completed\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -592,19 +824,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/tasks/:id",
+							"raw": "{{host}}/api/tasks/:id",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"tasks",
 								":id"
 							],
 							"variable": [
 								{
 									"key": "id",
-									"value": "2",
-									"type": "string"
+									"value": "1"
 								}
 							]
 						}
@@ -625,17 +857,17 @@
 						},
 						{
 							"key": "Content-Length",
-							"value": "221",
+							"value": "215",
 							"type": "text"
 						},
 						{
 							"key": "ETag",
-							"value": "W/\"dd-2u3YIlfSQ5D8kt7w1S96GGoXNyY\"",
+							"value": "W/\"d7-y3MkJLMFD4NKU60CbtOetyB76Cc\"",
 							"type": "text"
 						},
 						{
 							"key": "Date",
-							"value": "Tue, 21 Jan 2025 20:10:33 GMT",
+							"value": "Wed, 22 Jan 2025 02:12:14 GMT",
 							"type": "text"
 						},
 						{
@@ -650,14 +882,14 @@
 						}
 					],
 					"cookie": [],
-					"body": "{\n    \"id\": 2,\n    \"order\": 2,\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"completed\": false,\n    \"tags\": [\n        \"new\"\n    ],\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n    \"updatedAt\": \"2025-01-21T20:10:33.657Z\"\n}"
+					"body": "{\n    \"id\": 1,\n    \"order\": 1,\n    \"title\": \"Updated Task\",\n    \"description\": \"New Description\",\n    \"completed\": true,\n    \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n    \"createdAt\": \"2025-01-22T01:29:35.448Z\",\n    \"updatedAt\": \"2025-01-22T02:12:14.648Z\",\n    \"tags\": []\n}"
 				}
 			]
 		},
 		{
 			"name": "tasks/orders",
 			"request": {
-				"method": "PATCH",
+				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -669,11 +901,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{host}}/tasks/orders",
+					"raw": "{{host}}/api/tasks/orders",
 					"host": [
 						"{{host}}"
 					],
 					"path": [
+						"api",
 						"tasks",
 						"orders"
 					]
@@ -683,7 +916,7 @@
 				{
 					"name": "tasks/orders",
 					"originalRequest": {
-						"method": "PATCH",
+						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -695,11 +928,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{host}}/tasks/orders",
+							"raw": "{{host}}/api/tasks/orders",
 							"host": [
 								"{{host}}"
 							],
 							"path": [
+								"api",
 								"tasks",
 								"orders"
 							]
@@ -746,7 +980,7 @@
 						}
 					],
 					"cookie": [],
-					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 1,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"tags\": [\n            \"new\"\n        ],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:31:21.272Z\"\n    }\n]"
+					"body": "[\n    {\n        \"id\": 2,\n        \"order\": 1,\n        \"title\": \"Updated Task\",\n        \"description\": \"New Description\",\n        \"completed\": false,\n        \"tags\": [],\n        \"dueDate\": \"2025-01-21T18:11:35.000Z\",\n        \"createdAt\": \"2025-01-21T20:09:01.357Z\",\n        \"updatedAt\": \"2025-01-21T20:31:21.272Z\"\n    }\n]"
 				}
 			]
 		}

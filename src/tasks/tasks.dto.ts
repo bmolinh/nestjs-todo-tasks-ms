@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types';
 import {
   IsArray,
   IsBoolean,
@@ -7,7 +8,7 @@ import {
   IsString,
   MaxLength,
 } from 'class-validator';
-import { PartialType } from '@nestjs/mapped-types';
+import { UpdateTagDto } from '../shared/tag.dto';
 
 export class CreateTaskDto {
   @IsNotEmpty()
@@ -25,10 +26,9 @@ export class CreateTaskDto {
   completed?: boolean;
 
   @IsArray()
+  @IsOptional()
   @IsOptional({ each: true })
-  @IsString({ each: true })
-  @MaxLength(255, { each: true })
-  tags: string[];
+  tags: UpdateTagDto[];
 
   @IsDate()
   dueDate: Date;

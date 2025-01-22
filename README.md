@@ -72,52 +72,64 @@ $ curl http://localhost:3000/
 
 You can perform CRUD operations on tasks using the following endpoints:
 
+- **Get all tags**
+
+  ```bash
+  $ curl http://localhost:3000/api/tags
+  ```
+
 - **Get all tasks**
 
   ```bash
-  $ curl http://localhost:3000/tasks
+  $ curl http://localhost:3000/api/tasks
   ```
 
 - **Get tasks by completed status**
 
   ```bash
-  $ curl http://localhost:3000/tasks/completed?completed=true
+  $ curl http://localhost:3000/api/tasks?completed=true
   ```
 
 - **Get tasks by due date**
 
   ```bash
-  $ curl http://localhost:3000/tasks/due-date?dueDate=2023-10-10
+  $ curl http://localhost:3000/api/tasks?dueDate=2023-10-10
   ```
 
 - **Get a task by ID**
 
   ```bash
-  $ curl http://localhost:3000/tasks/1
+  $ curl http://localhost:3000/api/tasks/1
+  ```
+
+- **Create a new tag**
+
+  ```bash
+  $ curl -X POST http://localhost:3000/api/tags -H "Content-Type: application/json" -d '{"name": "New Tag"}'
   ```
 
 - **Create a new task**
 
   ```bash
-  $ curl -X POST http://localhost:3000/tasks -H "Content-Type: application/json" -d '{"title": "New Task", "description": "Task description", "dueDate": "2023-10-10"}'
+  $ curl -X POST http://localhost:3000/api/tasks -H "Content-Type: application/json" -d '{"title": "New Task", "description": "Task description", "tags": [], "dueDate": "2023-10-10"}'
   ```
 
 - **Update a task by ID**
 
   ```bash
-  $ curl -X PATCH http://localhost:3000/tasks/1 -H "Content-Type: application/json" -d '{"title": "Updated Task", "description": "Updated description"}'
+  $ curl -X PUT http://localhost:3000/api/tasks/1 -H "Content-Type: application/json" -d '{"title": "Updated Task", "description": "Updated description"}'
   ```
 
 - **Update task orders**
 
   ```bash
-  $ curl -X PATCH http://localhost:3000/tasks/orders -H "Content-Type: application/json" -d '[{"id": 1, "order": 2}]'
+  $ curl -X PUT http://localhost:3000/api/tasks/orders -H "Content-Type: application/json" -d '[{"id": 1, "order": 2}]'
   ```
 
 - **Delete a task by ID**
 
   ```bash
-  $ curl -X DELETE http://localhost:3000/tasks/1
+  $ curl -X DELETE http://localhost:3000/api/tasks/1
   ```
 
 ## Dockerization

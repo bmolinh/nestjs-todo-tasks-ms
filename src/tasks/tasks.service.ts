@@ -1,46 +1,73 @@
-import { Injectable } from '@nestjs/common';
-import { Task } from './task.model';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
+import { Tag } from '../shared/tag.model';
+import { TaskTag } from '../shared/task-tag.model';
+import { Task } from '../shared/task.model';
+import { CreateTaskDto, UpdateTaskDto } from './tasks.dto';
 
 @Injectable()
 export class TasksService {
   constructor(
     @InjectModel(Task)
     private readonly taskModel: typeof Task,
+    @InjectModel(TaskTag)
+    private readonly taskTagModel: typeof TaskTag,
   ) {}
 
-  async create(task: Partial<Task>): Promise<Task> {
-    const taskCreated = await this.taskModel.create({
-      ...task,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
+  async create(task: CreateTaskDto): Promise<Task> {
+    const taskCreated = await this.taskModel.create(
+      {
+        ...task,
+        taskTags: task.tags.map((tag) => ({ tagId: tag.id })),
+      },
+      {
+        include: [TaskTag],
+      },
+    );
 
     if (!taskCreated) throw new Error(`Task not created`);
+    console.log(taskCreated);
 
     return taskCreated.update({ order: taskCreated.id });
   }
 
-  async findAll(): Promise<Task[]> {
-    return this.taskModel.findAll();
+  async findAll(filter: {
+    completed?: boolean;
+    dueDate?: Date;
+  }): Promise<Task[]> {
+    const { completed, dueDate } = filter;
+
+    const completedFilter = completed !== undefined ? { completed } : {};
+
+    const dueDateFilter = dueDate !== undefined ? { dueDate } : {};
+
+    return this.taskModel.findAll({
+      where: { ...completedFilter, ...dueDateFilter, deletedAt: null },
+      include: [Tag],
+    });
   }
 
   async findById(id: number): Promise<Task> {
     return this.findTaskById(id);
   }
 
-  async findByCompleted(completed: boolean): Promise<Task[]> {
-    return this.taskModel.findAll({ where: { completed } });
-  }
+  async updateById(taskId: number, task: UpdateTaskDto): Promise<Task> {
+    const taskToUpdate = await this.findTaskById(taskId);
 
-  async findByDueDate(dueDate: Date): Promise<Task[]> {
-    return this.taskModel.findAll({ where: { dueDate } });
-  }
+    if (task.tags?.length && task.tags.length > 0) {
+      await this.taskTagModel.destroy({ where: { taskId } });
 
-  async updateById(id: number, task: Partial<Task>): Promise<Task> {
-    const taskToUpdate = await this.findTaskById(id);
+      await Promise.all(
+        task.tags.map(async ({ id: tagId }) =>
+          this.taskTagModel.create({
+            taskId,
+            tagId,
+          }),
+        ),
+      );
+    }
 
-    return await taskToUpdate.update({ ...task, updatedAt: new Date() });
+    return taskToUpdate.update({ ...task });
   }
 
   async updateOrders(orders: { id: number; order: number }[]): Promise<Task[]> {
@@ -48,7 +75,7 @@ export class TasksService {
       orders.map(async ({ id, order }) => {
         const task = await this.findTaskById(id);
 
-        return task.update({ order, updatedAt: new Date() });
+        return task.update({ order });
       }),
     );
 
@@ -62,9 +89,15 @@ export class TasksService {
   }
 
   private async findTaskById(id: number): Promise<Task> {
-    const task = await this.taskModel.findByPk(id);
+    const task = await this.taskModel.findByPk(id, {
+      include: [Tag, TaskTag],
+    });
 
-    if (!task) throw new Error(`Task with id ${id} not found`);
+    if (!task)
+      throw new NotFoundException('Something bad happened', {
+        cause: new Error(),
+        description: `Task with id ${id} not found`,
+      });
 
     return task;
   }

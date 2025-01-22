@@ -1,11 +1,17 @@
 import {
-  Table,
+  AutoIncrement,
+  BelongsToMany,
+  Column,
+  CreatedAt,
+  DeletedAt,
+  HasMany,
   Model,
   PrimaryKey,
-  AutoIncrement,
-  Column,
-  DataType,
+  Table,
+  UpdatedAt,
 } from 'sequelize-typescript';
+import { Tag } from './tag.model';
+import { TaskTag } from './task-tag.model';
 
 @Table
 export class Task extends Model {
@@ -26,15 +32,18 @@ export class Task extends Model {
   @Column({ defaultValue: false })
   completed: boolean;
 
-  @Column({ type: DataType.ARRAY(DataType.STRING) })
-  tags: string[];
+  @BelongsToMany(() => Tag, () => TaskTag)
+  tags: Tag[];
 
-  @Column
-  dueDate: Date;
+  @HasMany(() => TaskTag)
+  taskTags: TaskTag[];
 
-  @Column
+  @CreatedAt
   createdAt: Date;
 
-  @Column
+  @UpdatedAt
   updatedAt: Date;
+
+  @DeletedAt
+  deletedAt: Date;
 }
