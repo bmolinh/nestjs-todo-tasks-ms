@@ -4,30 +4,23 @@ import {
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   Query,
 } from '@nestjs/common';
-import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './tasks.dto';
+import { TasksService } from './tasks.service';
 
-@Controller('tasks')
+@Controller('api/tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Get()
-  findAll() {
-    return this.tasksService.findAll();
-  }
-
-  @Get('completed')
-  findByCompleted(@Query('completed') completed: boolean) {
-    return this.tasksService.findByCompleted(completed);
-  }
-
-  @Get('due-date')
-  findByDueDate(@Query('dueDate') dueDate: Date) {
-    return this.tasksService.findByDueDate(dueDate);
+  findAll(
+    @Query('completed') completed?: boolean,
+    @Query('dueDate') dueDate?: Date,
+  ) {
+    return this.tasksService.findAll({ completed, dueDate });
   }
 
   @Get(':id')
@@ -40,12 +33,12 @@ export class TasksController {
     return await this.tasksService.create(createTaskDto);
   }
 
-  @Patch('orders')
+  @Put('orders')
   async updateOrders(@Body() orders: { id: number; order: number }[]) {
     return await this.tasksService.updateOrders(orders);
   }
 
-  @Patch(':id')
+  @Put(':id')
   async updateById(
     @Param('id') id: number,
     @Body() updateTaskDto: UpdateTaskDto,

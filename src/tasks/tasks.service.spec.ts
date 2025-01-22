@@ -1,16 +1,20 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { NotFoundException } from '@nestjs/common';
 import { getModelToken } from '@nestjs/sequelize';
+import { Test, TestingModule } from '@nestjs/testing';
+import { TaskTag } from '../shared/task-tag.model';
+import { Task } from '../shared/task.model';
 import { TasksService } from './tasks.service';
-import { Task } from './task.model';
 
 describe('TasksService', () => {
   let service: TasksService;
+  let taskModel: typeof Task;
 
   const mockTask = {
     id: 1,
     title: 'Test Task',
     description: 'Test Description',
     completed: false,
+    tags: [{ id: 1, name: 'Test Tag' }],
     dueDate: new Date(),
     update: jest.fn().mockResolvedValue(this),
     destroy: jest.fn().mockResolvedValue(undefined),
@@ -22,102 +26,98 @@ describe('TasksService', () => {
     findByPk: jest.fn().mockResolvedValue(mockTask),
   };
 
+  const mockTaskTagModel = {
+    create: jest.fn().mockResolvedValue(undefined),
+    destroy: jest.fn().mockResolvedValue(undefined),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         TasksService,
-        {
-          provide: getModelToken(Task),
-          useValue: mockTaskModel,
-        },
+        { provide: getModelToken(Task), useValue: mockTaskModel },
+        { provide: getModelToken(TaskTag), useValue: mockTaskTagModel },
       ],
     }).compile();
 
     service = module.get<TasksService>(TasksService);
+    taskModel = module.get<typeof Task>(getModelToken(Task));
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
 
-  it('should create a task', async () => {
-    mockTask.update.mockResolvedValue(mockTask);
+  describe('create', () => {
+    it('should create a new task', async () => {
+      const createTaskDto = { title: 'New Task', tags: [{ id: 1 }] };
 
-    const task = await service.create({ title: 'New Task' });
+      mockTask.update.mockResolvedValue(mockTask);
 
-    expect(task).toEqual(mockTask);
+      const result = await service.create(createTaskDto as any);
+      expect(result).toEqual(mockTask);
+    });
   });
 
-  it('should find all tasks', async () => {
-    const tasks = await service.findAll();
-
-    expect(tasks).toEqual([mockTask]);
+  describe('findAll', () => {
+    it('should return an array of tasks', async () => {
+      const result = await service.findAll({});
+      expect(result).toEqual([mockTask]);
+    });
   });
 
-  it('should find a task by id', async () => {
-    const task = await service.findById(1);
+  describe('findById', () => {
+    it('should return a task by id', async () => {
+      const result = await service.findById(1);
+      expect(result).toEqual(mockTask);
+    });
 
-    expect(task).toEqual(mockTask);
+    it('should throw NotFoundException if task not found', async () => {
+      jest.spyOn(taskModel, 'findByPk').mockResolvedValueOnce(null);
+
+      await expect(service.findById(1)).rejects.toThrow(
+        new NotFoundException('Something bad happened', {
+          cause: new Error(),
+          description: `Task with id 1 not found`,
+        }),
+      );
+    });
   });
 
-  it('should find tasks by completed status', async () => {
-    const tasks = await service.findByCompleted(false);
+  describe('updateById', () => {
+    it('should update a task by id', async () => {
+      const updateTaskDto = { title: 'Updated Task', tags: [{ id: 1 }] };
+      const updatedTask = {
+        ...mockTask,
+        title: 'Updated Task',
+        updatedAt: new Date(),
+      };
 
-    expect(tasks).toEqual([mockTask]);
+      mockTask.update.mockResolvedValue(updatedTask);
+
+      const result = await service.updateById(1, updateTaskDto as any);
+      expect(result).toEqual(updatedTask);
+      expect(mockTask.update).toHaveBeenCalledWith({ ...updateTaskDto });
+    });
   });
 
-  it('should find tasks by due date', async () => {
-    const dueDate = new Date();
-    const tasks = await service.findByDueDate(dueDate);
+  describe('updateOrders', () => {
+    it('should update task orders', async () => {
+      const orders = [{ id: 1, order: 2 }];
+      const updatedTask = { ...mockTask, order: 2, updatedAt: new Date() };
 
-    expect(tasks).toEqual([mockTask]);
+      mockTask.update.mockResolvedValue(updatedTask);
+
+      const result = await service.updateOrders(orders);
+      expect(result).toEqual([updatedTask]);
+      expect(mockTask.update).toHaveBeenCalledWith({ order: 2 });
+    });
   });
 
-  it('should update a task by id', async () => {
-    const updatedTask = {
-      ...mockTask,
-      title: 'Updated Task',
-      updatedAt: new Date(),
-    };
-
-    mockTask.update.mockResolvedValue(updatedTask);
-
-    const task = await service.updateById(1, updatedTask);
-
-    expect(task).toEqual(updatedTask);
-    expect(mockTask.update).toHaveBeenCalledWith(updatedTask);
-  });
-
-  it('should update task orders', async () => {
-    const orders = [{ id: 1, order: 2 }];
-    const updatedTask = { ...mockTask, order: 2, updatedAt: new Date() };
-
-    mockTask.update.mockResolvedValue(updatedTask);
-
-    const tasks = await service.updateOrders(orders);
-
-    expect(tasks).toEqual([updatedTask]);
-  });
-
-  it('should remove a task by id', async () => {
-    await service.remove(1);
-
-    expect(mockTask.destroy).toHaveBeenCalled();
-  });
-
-  it('should throw an error if task not created', async () => {
-    jest.spyOn(mockTaskModel, 'create').mockResolvedValue(null);
-
-    await expect(service.create({ title: 'New Task' })).rejects.toThrow(
-      'Task not created',
-    );
-  });
-
-  it('should throw an error if task not found', async () => {
-    mockTaskModel.findByPk.mockResolvedValue(null);
-
-    await expect(service.findById(2)).rejects.toThrow(
-      'Task with id 2 not found',
-    );
+  describe('remove', () => {
+    it('should remove a task by id', async () => {
+      await service.remove(1);
+      expect(mockTask.destroy).toHaveBeenCalled();
+    });
   });
 });

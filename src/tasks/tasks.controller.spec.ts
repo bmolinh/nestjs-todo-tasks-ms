@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { Task } from '../shared/task.model';
 import { TasksController } from './tasks.controller';
-import { TasksService } from './tasks.service';
 import { CreateTaskDto, UpdateTaskDto } from './tasks.dto';
-import { Task } from './task.model';
+import { TasksService } from './tasks.service';
 
 describe('TasksController', () => {
   let tasksController: TasksController;
@@ -17,11 +17,9 @@ describe('TasksController', () => {
           useValue: {
             findAll: jest.fn(),
             findById: jest.fn(),
-            findByCompleted: jest.fn(),
-            findByDueDate: jest.fn(),
             create: jest.fn(),
-            updateById: jest.fn(),
             updateOrders: jest.fn(),
+            updateById: jest.fn(),
             remove: jest.fn(),
           },
         },
@@ -32,16 +30,28 @@ describe('TasksController', () => {
     tasksService = module.get<TasksService>(TasksService);
   });
 
-  it('should be defined', () => {
-    expect(tasksController).toBeDefined();
-  });
-
   describe('findAll', () => {
     it('should return an array of tasks', async () => {
-      const result = [];
-      jest.spyOn(tasksService, 'findAll').mockResolvedValue(result);
+      const result = [
+        {
+          id: 1,
+          order: 1,
+          title: 'Test',
+          description: 'Test',
+          completed: false,
+          tags: [],
+          dueDate: new Date(),
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          deletedAt: null,
+        },
+      ];
 
-      expect(await tasksController.findAll()).toEqual(result);
+      jest
+        .spyOn(tasksService, 'findAll')
+        .mockResolvedValue(result as unknown as Task[]);
+
+      expect(await tasksController.findAll()).toBe(result);
     });
   });
 
@@ -57,103 +67,66 @@ describe('TasksController', () => {
         dueDate: new Date(),
         createdAt: new Date(),
         updatedAt: new Date(),
+        deletedAt: null,
       };
 
       jest
         .spyOn(tasksService, 'findById')
         .mockResolvedValue(result as unknown as Task);
 
-      expect(await tasksController.findById(1)).toEqual(result);
-    });
-  });
-
-  describe('findByCompleted', () => {
-    it('should return an array of completed tasks', async () => {
-      const result = [];
-      jest.spyOn(tasksService, 'findByCompleted').mockResolvedValue(result);
-
-      expect(await tasksController.findByCompleted(true)).toEqual(result);
-    });
-  });
-
-  describe('findByDueDate', () => {
-    it('should return an array of tasks by due date', async () => {
-      const result = [];
-      jest.spyOn(tasksService, 'findByDueDate').mockResolvedValue(result);
-
-      expect(await tasksController.findByDueDate(new Date())).toEqual(result);
+      expect(await tasksController.findById(1)).toBe(result);
     });
   });
 
   describe('create', () => {
-    it('should create and return a task', async () => {
+    it('should create a new task', async () => {
       const createTaskDto: CreateTaskDto = {
-        title: 'Test',
+        title: 'New Task',
         description: 'Test',
-        dueDate: new Date(),
         tags: [],
+        dueDate: new Date(),
       };
 
-      const result = {
-        id: 1,
-        order: 1,
-        title: 'Test',
-        description: 'Test',
-        completed: false,
-        tags: [],
-        dueDate: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
+      const result = { id: 1, ...createTaskDto };
 
       jest
         .spyOn(tasksService, 'create')
         .mockResolvedValue(result as unknown as Task);
 
-      expect(await tasksController.create(createTaskDto)).toEqual(result);
+      expect(await tasksController.create(createTaskDto)).toBe(result);
+    });
+  });
+
+  describe('updateOrders', () => {
+    it('should update task orders', async () => {
+      const orders = [{ id: 1, order: 1 }];
+
+      const result = [{ id: 1, order: 1 }];
+
+      jest
+        .spyOn(tasksService, 'updateOrders')
+        .mockResolvedValue(result as unknown as Task[]);
+
+      expect(await tasksController.updateOrders(orders)).toBe(result);
     });
   });
 
   describe('updateById', () => {
-    it('should update and return a task', async () => {
-      const updateTaskDto: UpdateTaskDto = {
-        title: 'Updated Test',
-        description: 'Updated Test',
-      };
-      const result = {
-        id: 1,
-        order: 1,
-        title: 'Updated Test',
-        description: 'Updated Test',
-        completed: false,
-        tags: [],
-        dueDate: new Date(),
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
+    it('should update a task by id', async () => {
+      const updateTaskDto: UpdateTaskDto = { title: 'Updated Task' };
+
+      const result = { id: 1, ...updateTaskDto };
 
       jest
         .spyOn(tasksService, 'updateById')
         .mockResolvedValue(result as unknown as Task);
 
-      expect(await tasksController.updateById(1, updateTaskDto)).toEqual(
-        result,
-      );
-    });
-  });
-
-  describe('updateOrders', () => {
-    it('should update and return an array of tasks', async () => {
-      const orders = [{ id: 1, order: 1 }];
-      const result = [];
-      jest.spyOn(tasksService, 'updateOrders').mockResolvedValue(result);
-
-      expect(await tasksController.updateOrders(orders)).toEqual(result);
+      expect(await tasksController.updateById(1, updateTaskDto)).toBe(result);
     });
   });
 
   describe('remove', () => {
-    it('should remove a task', async () => {
+    it('should remove a task by id', async () => {
       jest.spyOn(tasksService, 'remove').mockResolvedValue(undefined);
 
       expect(await tasksController.remove(1)).toBeUndefined();
