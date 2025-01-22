@@ -38,6 +38,9 @@ export class Task extends Model {
   @HasMany(() => TaskTag)
   taskTags: TaskTag[];
 
+  @Column
+  dueDate: Date;
+
   @CreatedAt
   createdAt: Date;
 

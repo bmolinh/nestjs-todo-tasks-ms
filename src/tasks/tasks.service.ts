@@ -26,7 +26,6 @@ export class TasksService {
     );
 
     if (!taskCreated) throw new Error(`Task not created`);
-    console.log(taskCreated);
 
     return taskCreated.update({ order: taskCreated.id });
   }

@@ -12,6 +12,7 @@ services:
       DATABASE_USER: postgres
       DATABASE_PASSWORD: postgrespassword
       DATABASE_NAME: tasks
+      FRONTEND_URL: http://localhost:5173
     depends_on:
       - postgres
 

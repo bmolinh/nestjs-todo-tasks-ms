@@ -30,6 +30,7 @@ export class CreateTaskDto {
   @IsOptional({ each: true })
   tags: UpdateTagDto[];
 
+  @IsNotEmpty()
   @IsDate()
   dueDate: Date;
 }
